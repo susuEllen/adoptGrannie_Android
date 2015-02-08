@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AdoptAGrannie</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name"></string>
+    <string name="welcome_string">Welcome Ellen!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_home">Home</string>
+    <string name="action_profile">Profile</string>
+    <string name="title_activity_loading"></string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="loading_content">Loading\nElderly</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_test">testing show Request Info fragment</string>
 
 </resources>
