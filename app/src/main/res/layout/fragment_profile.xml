@@ -1,12 +1,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ellenwong.adoptagrannie.ProfileFragment">
+    tools:context="com.example.ellenwong.adoptagrannie.ProfileFragment"
+    android:background="@drawable/profile_background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_ryan"/>
+     <TextView
+         android:paddingTop="20dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Ryan Gosling"
+         android:textColor="#ffffffff"
+         android:textSize="35dp"/>
+    </LinearLayout>
+
 
 </FrameLayout>

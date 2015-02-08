@@ -1,6 +1,7 @@
 package com.example.ellenwong.adoptagrannie;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -56,10 +57,11 @@ public class RequestInfoFragment extends Fragment {
         this.m_grannieName = getArguments().getString("grannieName");
         this.m_startTime = getArguments().getString("startTime");
         this.m_distance = getArguments().getString("distance");
-        //this.m_status = getArguments().getString("status"); // probably dont need status in this view
+        this.m_status = getArguments().getString("status");
         this.m_img_index = getArguments().getInt("img");
         this.m_message = getArguments().getString("message");
         this.m_itemId = getArguments().getString("itemId");
+
 
 
         // TODO: create the textViews in the xml
@@ -71,6 +73,7 @@ public class RequestInfoFragment extends Fragment {
         //TextView address_textView = (TextView) rootView.findViewById(R.id.grannieAddress_TextView);
         TextView message_textView = (TextView) rootView.findViewById(R.id.grannieMessage_TextView);
         ImageView profile_imageView = (ImageView) rootView.findViewById(R.id.grannie_ImageView);
+
 
         //Populate Fragment with item metadata
 //        if (requestName_textView != null) {
@@ -104,22 +107,36 @@ public class RequestInfoFragment extends Fragment {
 
         // Inflate the layout for this fragment
         Button acceptButton = (Button) rootView.findViewById(R.id.acceptButton);
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO:  you need to pass this back to MainActivity to accept
-                // accept will then change status on a parse object
-                // which will in turn trigger a mail send.
+        if (acceptButton != null) {
+            //TODO: Logic to disable button if request is already accepted
 
-                if(mAcceptItemClickListener != null) {
-                    mAcceptItemClickListener.notifyAcceptItemClicked(RequestInfoFragment.this.m_itemId);
-                } else {
-                    Log.d(TAG, "mAcceptItemClickListener is null cannot notifyAcceptItemClicked ");
+            if (!m_status.equals(Item.STATUS_ACTIVE)) {
+                Log.d(TAG, "accepted, button disabled. m_status = " + m_status);
+                acceptButton.setBackgroundColor(Color.GREEN);
+                acceptButton.setText("Request Accepted");
+                acceptButton.setClickable(false);
+                acceptButton.setEnabled(false);
+            } else {
+                Log.d(TAG, "not accepted. m_status = " + m_status);
+                if (acceptButton != null) {
+                    acceptButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO:  you need to pass this back to MainActivity to accept
+                            // accept will then change status on a parse object
+                            // which will in turn trigger a mail send.
+
+                            if (mAcceptItemClickListener != null) {
+                                mAcceptItemClickListener.notifyAcceptItemClicked(RequestInfoFragment.this.m_itemId);
+                            } else {
+                                Log.d(TAG, "mAcceptItemClickListener is null cannot notifyAcceptItemClicked ");
+                            }
+
+                        }
+                    });
                 }
-
             }
-        });
-
+        }
         return rootView;
     }
 

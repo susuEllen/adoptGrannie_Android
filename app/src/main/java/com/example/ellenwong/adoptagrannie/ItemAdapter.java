@@ -75,7 +75,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             // check to see if each individual textview is null.
             // if not, assign some text!
             if (distance_textview != null){
-                distance_textview.setText(i.getDistance());
+                distance_textview.setText(i.getDistance() + " mil");
             }
             if (name_textview != null){
                 name_textview.setText(i.getGrannieName());
@@ -96,6 +96,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             if(status != null) {
                 if (status.equals(Item.STATUS_ACCEPTED)) {
                     Log.d(TAG, "item is accepted. status =  " + status);
+                    if (status_Icon != null) {
+                        status_Icon.setImageResource(R.drawable.ic_accept);
+                    }
                 } else {
                     Log.d(TAG, "item is Active. status =  " + status);
                     if (status_Icon != null) {

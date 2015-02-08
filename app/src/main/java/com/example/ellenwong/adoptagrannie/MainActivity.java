@@ -40,16 +40,15 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
 
     private void hardCodeProfileImages() {
         Log.d(TAG, "In hardCodeProfileImages");
-//        profile_img_drawables.add(Integer.valueOf(R.drawable.crazy_old_lady));
-//        profile_img_drawables.add(Integer.valueOf(R.drawable.cute_lady));
-//        profile_img_drawables.add(Integer.valueOf(R.drawable.grandpa_pic1));
-//        //profile_img_drawables.add(Integer.valueOf(R.drawable.rich_grandpa));
-//        profile_img_drawables.add(Integer.valueOf(R.drawable.smile_grannie));
-//        profile_img_drawables.add(Integer.valueOf(R.drawable.smile_grannie_2));
-//        //profile_img_drawables.add(Integer.valueOf(R.drawable.talking_grannie));
-//        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_grandma_pic));
-        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_profile_man1));
 
+        //TODO: make the fake data map to a particular test user
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_crazygrannie));
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_cute_grannie));
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_profile_man1));
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_smile_grannie));
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_happy_grannie));
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_smug));
+        profile_img_drawables.add(Integer.valueOf(R.drawable.ic_phone_grannie));
     }
 
     public static Integer getHardCodedProfilePic(int listIndex) {
@@ -90,19 +89,20 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_home) {
+        } else */
+        if (id == R.id.action_home) {
 
             replaceWithFeedFragment();
 
         } else if (id == R.id.action_profile) {
 
             replaceWithProfile();
-        } else if (id == R.id.action_testRequest) {
+        }/* else if (id == R.id.action_testRequest) {
 
             //replaceWithRequestInfo(new Item());
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -130,6 +130,7 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
             //bundle.putString("status", item.getStatus());
             bundle.putInt("img", indexImg);
             bundle.putString("message", item.getMessage());
+            bundle.putString("status", item.getStatus());
 
             // set Fragmentclass Arguments
             requestInfoFragment.setArguments(bundle);
@@ -180,7 +181,6 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
 
             fetchGrannieRequestsFromParse();
 
-
             Item defaultItem = new Item();
             itemArrayList = new ArrayList<Item>();
             itemArrayList.add(defaultItem);
@@ -215,6 +215,7 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
                     mRequestListAdapter.clear();
 
                     for (Item item : items) {
+
                         //String img, String rName, String gName, String t, String d , String s
                         //Item newItem = new Item(item.getImg_url(), item.getGrannieName(), item.getRequestName(), item.getTime(), item.getDistance(), item.getStatus());
                         mRequestListAdapter.add(item);

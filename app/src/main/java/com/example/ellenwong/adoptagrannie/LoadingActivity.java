@@ -126,7 +126,7 @@ public class LoadingActivity extends Activity {
         delayedHide(100);
 
         // delay in seconds
-        startFeedActivityWithDelay(5);
+        startFeedActivityWithDelay(3);
     }
 
 

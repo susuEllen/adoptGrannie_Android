@@ -60,7 +60,7 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:text="Accept"
             android:textColor="#FFFFFF"
             android:paddingTop="10dp"
