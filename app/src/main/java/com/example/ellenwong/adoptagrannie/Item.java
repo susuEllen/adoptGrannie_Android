@@ -1,18 +1,34 @@
 package com.example.ellenwong.adoptagrannie;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 /**
  * Created by ellenwong on 2/7/15.
  */
 
-//TODO: turn this into a parse Object class
-public class Item {
+@ParseClassName("Request")
+public class Item extends ParseObject{
     private String img_url = "";
     private String requestName = "Walk";
-    private String grannieName = "grannie1";
+    private String grannieName = "grannie 1";
     private String time = "4:00 pm";
     private String distance = "0.3 mil";
     private String status = "active";
     private String message = "Hi, I need help";
+
+    private static final String GRANNIE_NAME = "grannieName";
+    private static final String IMG = "img";
+    private static final String MESSAGE = "message";
+    private static final String REQUEST_NAME = "requestName";
+    private static final String START_TIME = "startTime";
+    public static final String STATUS = "status";
+    private static final String SUBJECT = "subject";
+    private static final String DISTANCE = "distance";
+    public static final String STATUS_ACTIVE = "Active";
+    public static final String STATUS_ACCEPTED = "Accepted";
+
 
     public Item(){
 
@@ -28,87 +44,84 @@ public class Item {
     }
 
     public String getRequestName() {
-        //return getString("name");
-        return this.requestName;
+        return getString(REQUEST_NAME);
+        //return this.requestName;
     }
 
     public void setRequestName(String value) {
-        //put("name", value);
+        put(REQUEST_NAME, value);
     }
 
+    public String getSubject() {
+        return getString(SUBJECT);
+        //return this.requestName;
+    }
+
+    public void setSubject(String value) {
+        put(SUBJECT, value);
+    }
+
+
     public String getGrannieName() {
-        return this.grannieName;
+        return getString(GRANNIE_NAME);
+        //return this.grannieName;
     }
 
     public void setGrannieName(String value) {
         //this.grannieName = value;
-        //put("grannieName", value);
+        put(GRANNIE_NAME, value);
     }
 
     public String getTime() {
-        //return getString("name");
-        return this.time;
+        return getString(START_TIME);
+        //return this.time;
     }
 
-    public String getImg_url() {
-        //return getString("name");
-        return this.img_url;
-    }
+//    public String getImg_url() {
+//        return getString(IMG);
+//        //return this.img_url;
+//    }
 
     public String getMessage() {
-        //return getString("message");
-        return this.message;
+        return getString(MESSAGE);
+        //return this.message;
     }
 
     public String getDistance() {
-        //return getString("name");
-        return this.distance;
+        return getString(DISTANCE);
+        //return this.distance;
     }
 
     public String getStatus() {
-        //return getString("name");
-        return this.status;
+        return getString(STATUS);
+        //return this.status;
     }
 
 
-    public void setImg_url(){
-        //put("name", value);
+    public void setImg_url(String value){
+        put(IMG, value);
     }
 
-    public void setTime() {
-        //put("name", value);
+    public void setTime(String value) {
+        put(START_TIME, value);
     }
 
-    public void setDistance() {
-        //put("name", value);
+    public void setDistance(String value) {
+        put(DISTANCE, value);
     }
 
-    public void setStatus() {
-        //put("name", value);
+    public void setStatus(String value) {
+        put(STATUS, value);
     }
 
-//    public String getDetails() {
-//        return details;
-//    }
-//
-//    public void setDetails(String details) {
-//        this.details = details;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public int getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(int price) {
-//        this.price = price;
-//    }
+    public static ParseQuery<Item> getQuery() {
+        return ParseQuery.getQuery(Item.class);
+    }
 
+    @Override
+    public String toString() {
+        //return super.toString();
+        String objectStr = " message = " + getMessage() + " RequestName = " + getRequestName() + " elderly name = " + getGrannieName();
+        return objectStr;
+    }
 }

@@ -55,7 +55,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 		 *
 		 * Therefore, i refers to the current Item object.
 		 */
+
         final Item i = objects.get(position);
+        final int pos = position;
 
         if (i != null) {
 
@@ -66,6 +68,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             TextView requestName_textview = (TextView) v.findViewById(R.id.list_item_RequestName_textView);
             TextView startTime_textview = (TextView) v.findViewById(R.id.list_item_StartTime_textView);
 
+            ImageView profile_icon = (ImageView)v.findViewById(R.id.list_item_profile_ImageView);
             ImageView status_Icon = (ImageView) v.findViewById(R.id.list_item_status_ImageView);
 
 
@@ -85,11 +88,31 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             }
 
             String status = i.getStatus();
-            String img = i.getImg_url();
-            String startTime = i.getTime();
+            //String img = i.getImg_url();
+            //String startTime = i.getTime();
 
             //TODO: populate UI for different status, image, startTime
-            Log.d(TAG, "status = " + status + " img = " + img + " startTime = " + startTime);
+
+            if(status != null) {
+                if (status.equals(Item.STATUS_ACCEPTED)) {
+                    Log.d(TAG, "item is accepted. status =  " + status);
+                } else {
+                    Log.d(TAG, "item is Active. status =  " + status);
+                    if (status_Icon != null) {
+                        status_Icon.setImageResource(R.drawable.ic_more);
+                    }
+                }
+            } else {
+                //TODO: figure out why this can be null??? wtf
+                Log.d(TAG, "status = null. item = " + i.toString());
+            }
+
+            // use hardcoded, prepopulated profile pictures of grannies
+            if (profile_icon != null) {
+                int resId = MainActivity.getHardCodedProfilePic(position);
+                profile_icon.setImageResource(resId);
+            }
+
 
 
             // Logic to navigate to each request detail
@@ -98,7 +121,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                     @Override
                     public void onClick(View v) {
                         if(m_clickListener != null) {
-                            m_clickListener.notifyRequestItemClicked(i);
+                            m_clickListener.notifyRequestItemClicked(i, pos);
                         } else {
                             Log.d(TAG, "m_clickListener is null, notifyRequestItemClicked not called");
                         }

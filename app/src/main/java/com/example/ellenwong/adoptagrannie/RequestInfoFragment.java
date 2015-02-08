@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -24,14 +25,21 @@ public class RequestInfoFragment extends Fragment {
     private String m_startTime = "";
     private String m_distance = "";
     private String m_status = "";
-    private String m_img = "";
+    //private String m_img = "";
+    private int m_img_index = 0;
     private String m_message = "";
+    private String m_itemId = "";
     //private String m_address = "";
+
+    private AcceptItemClickListener mAcceptItemClickListener = null;
 
     public RequestInfoFragment() {
         // Required empty public constructor
     }
 
+    public void setAcceptItemClickListener(AcceptItemClickListener listener) {
+        this.mAcceptItemClickListener = listener;
+    }
 //    bundle.putString("requestName", item.getRequestName());
 //    bundle.putString("grannieName", item.getGrannieName());
 //    bundle.putString("startTime", item.getTime());
@@ -49,8 +57,9 @@ public class RequestInfoFragment extends Fragment {
         this.m_startTime = getArguments().getString("startTime");
         this.m_distance = getArguments().getString("distance");
         //this.m_status = getArguments().getString("status"); // probably dont need status in this view
-        this.m_img = getArguments().getString("img");
+        this.m_img_index = getArguments().getInt("img");
         this.m_message = getArguments().getString("message");
+        this.m_itemId = getArguments().getString("itemId");
 
 
         // TODO: create the textViews in the xml
@@ -61,6 +70,7 @@ public class RequestInfoFragment extends Fragment {
         //TextView startTime_textView = (TextView) rootView.findViewById(R.id.xxx);
         //TextView address_textView = (TextView) rootView.findViewById(R.id.grannieAddress_TextView);
         TextView message_textView = (TextView) rootView.findViewById(R.id.grannieMessage_TextView);
+        ImageView profile_imageView = (ImageView) rootView.findViewById(R.id.grannie_ImageView);
 
         //Populate Fragment with item metadata
 //        if (requestName_textView != null) {
@@ -84,10 +94,13 @@ public class RequestInfoFragment extends Fragment {
 //        }
 
         if (message_textView != null) {
-            //message_textView.setText(this.m_message);
+            message_textView.setText(this.m_message);
         }
 
-        //TODO: do something for the image
+        if(profile_imageView != null) {
+            int resId = MainActivity.getHardCodedProfilePic(m_img_index);
+            profile_imageView.setImageResource(resId);
+        }
 
         // Inflate the layout for this fragment
         Button acceptButton = (Button) rootView.findViewById(R.id.acceptButton);
@@ -97,7 +110,13 @@ public class RequestInfoFragment extends Fragment {
                 //TODO:  you need to pass this back to MainActivity to accept
                 // accept will then change status on a parse object
                 // which will in turn trigger a mail send.
-                Log.d(TAG, "acceptButton on click");
+
+                if(mAcceptItemClickListener != null) {
+                    mAcceptItemClickListener.notifyAcceptItemClicked(RequestInfoFragment.this.m_itemId);
+                } else {
+                    Log.d(TAG, "mAcceptItemClickListener is null cannot notifyAcceptItemClicked ");
+                }
+
             }
         });
 
