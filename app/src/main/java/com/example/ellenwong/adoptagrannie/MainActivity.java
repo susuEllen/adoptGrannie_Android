@@ -15,7 +15,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements RequestItemClickListner {
+
 
     private static String TAG = "MainActivity";
     private static final String APP_ID_PARSE = "lfv0uvEoiM8gxprHYW0vUQeiZmtqG7LGLRkexPcC";
@@ -71,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
             replaceWithProfile();
         } else if (id == R.id.action_testRequest) {
 
-            replaceWithRequestInfo();
+            replaceWithRequestInfo(new Item());
         }
 
         return super.onOptionsItemSelected(item);
@@ -85,9 +86,26 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private void replaceWithRequestInfo() {
+    private void replaceWithRequestInfo(Item item) {
+        RequestInfoFragment requestInfoFragment = new RequestInfoFragment();
+
+
+        if(item != null) {
+            Bundle bundle = new Bundle();
+            //bundle.putString("requestName", item.getRequestName());
+            bundle.putString("grannieName", item.getGrannieName());
+            //bundle.putString("startTime", item.getTime());
+            //bundle.putString("distance", item.getDistance());
+            //bundle.putString("status", item.getStatus());
+            bundle.putString("img", item.getImg_url());
+            bundle.putString("message", item.getImg_url());
+
+            // set Fragmentclass Arguments
+            requestInfoFragment.setArguments(bundle);
+        }
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new RequestInfoFragment())
+                .replace(R.id.container, requestInfoFragment)
                 .commit();
 
     }
@@ -144,11 +162,23 @@ public class MainActivity extends ActionBarActivity {
 
             //TODO: create a custom Array adaptor
             mChallengeListAdapter = new ItemAdapter(getActivity(), R.layout.list_item_main, itemArrayList);
+            mChallengeListAdapter.setItemClickListener(MainActivity.this);
 
             ListView listView = (ListView) rootView.findViewById(R.id.listView_main);
             listView.setAdapter(mChallengeListAdapter);
 
             return rootView;
         }
+
+    }
+
+    @Override
+    public void notifyRequestItemClicked(Item i) {
+        //TODO: pass in actual data
+        // start Request Activity with item i
+        // which has all the info you need for the Request Info Fragment
+
+        replaceWithRequestInfo(i);
+
     }
 }

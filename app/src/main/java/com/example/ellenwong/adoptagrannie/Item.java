@@ -12,6 +12,7 @@ public class Item {
     private String time = "4:00 pm";
     private String distance = "0.3 mil";
     private String status = "active";
+    private String message = "Hi, I need help";
 
     public Item(){
 
@@ -52,6 +53,11 @@ public class Item {
     public String getImg_url() {
         //return getString("name");
         return this.img_url;
+    }
+
+    public String getMessage() {
+        //return getString("message");
+        return this.message;
     }
 
     public String getDistance() {

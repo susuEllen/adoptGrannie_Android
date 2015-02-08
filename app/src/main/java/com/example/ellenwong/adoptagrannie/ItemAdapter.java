@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     // declaring our ArrayList of items
     private ArrayList<Item> objects;
     private static final String TAG = "ItemAdapter";
+    private static RequestItemClickListner m_clickListener = null;
 
     /* here we must override the constructor for ArrayAdapter
     * the only variable we care about now is ArrayList<Item> objects,
@@ -27,6 +29,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         this.objects = objects;
     }
 
+    public void setItemClickListener(RequestItemClickListner listener) {
+        m_clickListener = listener;
+    }
     /*
      * we are overriding the getView method here - this is what defines how each
      * list item will look.
@@ -50,7 +55,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 		 *
 		 * Therefore, i refers to the current Item object.
 		 */
-        Item i = objects.get(position);
+        final Item i = objects.get(position);
 
         if (i != null) {
 
@@ -60,6 +65,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             TextView name_textview = (TextView) v.findViewById(R.id.list_item_name_textView);
             TextView requestName_textview = (TextView) v.findViewById(R.id.list_item_RequestName_textView);
             TextView startTime_textview = (TextView) v.findViewById(R.id.list_item_StartTime_textView);
+
+            ImageView status_Icon = (ImageView) v.findViewById(R.id.list_item_status_ImageView);
 
 
             // check to see if each individual textview is null.
@@ -83,6 +90,22 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
             //TODO: populate UI for different status, image, startTime
             Log.d(TAG, "status = " + status + " img = " + img + " startTime = " + startTime);
+
+
+            // Logic to navigate to each request detail
+            if (status_Icon != null) {
+                status_Icon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(m_clickListener != null) {
+                            m_clickListener.notifyRequestItemClicked(i);
+                        } else {
+                            Log.d(TAG, "m_clickListener is null, notifyRequestItemClicked not called");
+                        }
+
+                    }
+                });
+            }
         }
 
         // the view must be returned to our activity

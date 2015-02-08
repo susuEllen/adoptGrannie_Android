@@ -4,7 +4,76 @@
     tools:context="com.example.ellenwong.adoptagrannie.RequestInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_test" />
+    <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"-->
+        <!--android:text="@string/hello_test" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="3"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_grandma_pic"
+                android:id="@+id/grannie_ImageView"
+                android:layout_gravity="center"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="Alice Wong"
+                    android:id="@+id/grannieName_TextView"
+                    android:layout_gravity="left"/>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="12dp"-->
+                    <!--android:id="@+id/grannieAddress_TextView"-->
+                    <!--android:text="969 Market st"-->
+                    <!--android:layout_gravity="left"/>-->
+            </LinearLayout>
+
+         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:id="@+id/grannieMessage_TextView"
+            android:text="Hello,\nI am looking for someone to help me go for a walk at 5pm today. It'll only be for 30 minutes or so\nThanks, Alice"
+            android:padding="30dp"
+            android:layout_weight="5"/>
+
+        <Button
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="Accept"
+            android:textColor="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#EB4C38"
+            android:id="@+id/acceptButton"
+            android:layout_weight="1"/>
+
+
+        </LinearLayout>
 
 </FrameLayout>
