@@ -10,11 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,8 +21,10 @@ public class MainActivity extends ActionBarActivity {
     private static final String APP_ID_PARSE = "lfv0uvEoiM8gxprHYW0vUQeiZmtqG7LGLRkexPcC";
     private static final String CLIENT_ID_PARSE = "zbtgIdiPRLrDudeksMcpWu6VxeCwPHfLeVOPjvMb";
 
-    private static ArrayAdapter<String> mChallengeListAdapter = null;
-    private static ArrayList<String> testDataArrayList = null;
+    //private static ItemAdapter<Item> mChallengeListAdapter = null;
+    private static ItemAdapter mChallengeListAdapter = null;
+    //private static ArrayList<String> testDataArrayList = null;
+    private static ArrayList<Item> itemArrayList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,16 +135,15 @@ public class MainActivity extends ActionBarActivity {
             }
 
 
-            String [] testData = {"This", "is", "to", "test", "list"};
-            testDataArrayList = new ArrayList<String>(Arrays.asList(testData));
-
+            //String [] testData = {"This", "is", "to", "test", "list"};
+            //testDataArrayList = new ArrayList<String>(Arrays.asList(testData));
+            Item defaultItem = new Item();
+            itemArrayList = new ArrayList<Item>();
+            itemArrayList.add(defaultItem);
             // Initialize an array adapter to display content in ListView
 
             //TODO: create a custom Array adaptor
-            mChallengeListAdapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.list_item_main,
-                    R.id.list_item_name_textView,
-                    testDataArrayList);
+            mChallengeListAdapter = new ItemAdapter(getActivity(), R.layout.list_item_main, itemArrayList);
 
             ListView listView = (ListView) rootView.findViewById(R.id.listView_main);
             listView.setAdapter(mChallengeListAdapter);

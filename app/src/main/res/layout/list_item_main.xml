@@ -18,6 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/list_item_RequestName_textView"
             android:text="Walk"
             android:textSize="26dp"/>
 
@@ -41,13 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5:00 pm"
+            android:id="@+id/list_item_StartTime_textView"
             android:textSize="26dp"/>
 
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content" android:layout_height="match_parent"
             android:id="@+id/list_item_distance_textView"
-            android:text="grannie 1"
+            android:text="0.5 mil"
             android:textSize="16dp"
             android:minHeight="5dp">
         </TextView>
