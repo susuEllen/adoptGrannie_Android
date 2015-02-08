@@ -70,6 +70,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
             ImageView profile_icon = (ImageView)v.findViewById(R.id.list_item_profile_ImageView);
             ImageView status_Icon = (ImageView) v.findViewById(R.id.list_item_status_ImageView);
+            View item_container = (View) v.findViewById(R.id.list_item_main_container);
 
 
             // check to see if each individual textview is null.
@@ -119,8 +120,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
 
             // Logic to navigate to each request detail
-            if (status_Icon != null) {
-                status_Icon.setOnClickListener(new View.OnClickListener() {
+            if (item_container != null) {
+                item_container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(m_clickListener != null) {
