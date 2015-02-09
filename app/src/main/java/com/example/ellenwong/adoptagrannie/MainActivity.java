@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -19,6 +20,12 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+import com.sinch.android.rtc.PushPair;
+import com.sinch.android.rtc.Sinch;
+import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.calling.Call;
+import com.sinch.android.rtc.calling.CallClient;
+import com.sinch.android.rtc.calling.CallListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +42,7 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
     private static ItemAdapter mRequestListAdapter = null;
     //private static ArrayList<String> testDataArrayList = null;
     private static ArrayList<Item> itemArrayList = null;
+    private static SinchClient sinchClient = null;
 
     private static ArrayList<Integer> profile_img_drawables = new ArrayList<Integer>();
 
@@ -71,8 +79,70 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
                     .commit();
         }
         hardCodeProfileImages();
+
+        android.content.Context context = this.getApplicationContext();
+        sinchClient = Sinch.getSinchClientBuilder().context(context)
+                .applicationKey("3ec48ad6-58b9-4165-a429-31e75b7ca8d3")
+                .applicationSecret("C+30gbg0EEWsSuOO9NiVQA==")
+                .environmentHost("sandbox.sinch.com")
+                .userId("default")
+                .build();
+
+        if(sinchClient != null) {
+            sinchClient.setSupportCalling(true);
+            sinchClient.start();
+        } else {
+            Log.d(TAG, "sinchClient is null");
+        }
+
+        //call.addCallListener(...);
     }
 
+
+    private void makeSinchCall(){
+        // TODO: move this
+        CallClient callClient = sinchClient.getCallClient();
+
+        Call call = callClient.callPhoneNumber("16502792329"); // HARD CODED
+
+        //Context context = getApplicationContext();
+        //CharSequence text = "Calling...";
+        //int duration = Toast.LENGTH_LONG;
+
+        //Toast toast = Toast.makeText(context, text, duration);
+        //toast.show();
+
+        call.addCallListener(new CallListener() {
+            @Override
+            public void onCallProgressing(Call call) {
+                // ringing
+                Toast toast = Toast.makeText(getApplicationContext(), "Calling...", Toast.LENGTH_LONG);
+                toast.show();
+
+            }
+
+            @Override
+            public void onCallEstablished(Call call) {
+                // when person pick up
+                Toast toast = Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_LONG);
+                toast.show();
+
+            }
+
+            @Override
+            public void onCallEnded(Call call) {
+                // when call ends
+                Toast toast = Toast.makeText(getApplicationContext(), "Call Ended", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onShouldSendPushNotification(Call call, List<PushPair> pushPairs) {
+                //DO NOTHING
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,10 +169,11 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
         } else if (id == R.id.action_profile) {
 
             replaceWithProfile();
-        }/* else if (id == R.id.action_testRequest) {
+        } else if (id == R.id.action_testRequest) {
 
+            this.makeSinchCall();
             //replaceWithRequestInfo(new Item());
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -232,6 +303,7 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
     public void notifyAcceptItemClicked(String requestId) {
         Log.d(TAG, "In notifyAcceptItemClicked. requestId = " + requestId);
 
+
         ParseQuery<Item> query = ParseQuery.getQuery("Request");
 
         // Retrieve the object by id
@@ -241,6 +313,8 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
                     // Now let's update it with some new data.
                     if (requestItem != null) {
                         requestItem.put(Item.STATUS, Item.STATUS_ACCEPTED);
+                        //hack
+                        requestItem.put("volunteerid","svmmse8UwO");
                         requestItem.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
@@ -251,6 +325,7 @@ public class MainActivity extends ActionBarActivity implements RequestItemClickL
                 }
             }
         });
+
 
 
     }

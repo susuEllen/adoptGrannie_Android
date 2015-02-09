@@ -89,6 +89,7 @@
     <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="1_bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="Parse-1.8.2" level="project" />
+    <orderEntry type="library" exported="" name="sinch-android-rtc-3.4.3" level="project" />
   </component>
 </module>
 

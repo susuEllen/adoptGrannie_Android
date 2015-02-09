@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile files('libs/sinch-android-rtc-3.4.3.jar')
 }

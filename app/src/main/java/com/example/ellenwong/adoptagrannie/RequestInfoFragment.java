@@ -73,7 +73,11 @@ public class RequestInfoFragment extends Fragment {
         //TextView address_textView = (TextView) rootView.findViewById(R.id.grannieAddress_TextView);
         TextView message_textView = (TextView) rootView.findViewById(R.id.grannieMessage_TextView);
         ImageView profile_imageView = (ImageView) rootView.findViewById(R.id.grannie_ImageView);
+        TextView adopt_textView = (TextView) rootView.findViewById(R.id.grannieAdopt_TextView);
 
+        if (adopt_textView != null) {
+            adopt_textView.setVisibility(View.GONE);
+        }
 
         //Populate Fragment with item metadata
 //        if (requestName_textView != null) {
@@ -110,12 +114,18 @@ public class RequestInfoFragment extends Fragment {
         if (acceptButton != null) {
             //TODO: Logic to disable button if request is already accepted
 
-            if (!m_status.equals(Item.STATUS_ACTIVE)) {
+            if (m_status!= null && !m_status.equals(Item.STATUS_ACTIVE)) {
                 Log.d(TAG, "accepted, button disabled. m_status = " + m_status);
                 acceptButton.setBackgroundColor(Color.GREEN);
                 acceptButton.setText("Request Accepted");
                 acceptButton.setClickable(false);
                 acceptButton.setEnabled(false);
+
+                if (adopt_textView != null) {
+                    adopt_textView.setVisibility(View.VISIBLE);
+                    //TODO: create a toast to allow user to "adopt that elderly"
+                }
+
             } else {
                 Log.d(TAG, "not accepted. m_status = " + m_status);
                 if (acceptButton != null) {
